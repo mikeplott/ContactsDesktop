@@ -17,6 +17,6 @@
             <Button mnemonicParsing="false" onAction="#removeContact" text="Remove" HBox.hgrow="NEVER" />
          </children>
       </HBox>
-      <ListView fx:id="list" prefHeight="168.0" prefWidth="615.0" />
+      <ListView fx:id="list" prefHeight="405.0" prefWidth="615.0" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>
