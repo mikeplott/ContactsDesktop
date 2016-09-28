@@ -17,7 +17,6 @@ import java.util.*;
 public class Controller implements Initializable {
 
     public File f = new File("My Contacts.json");
-    //HashMap<String, ObservableList<Contact>> myContacts = new HashMap<>();
     ArrayList<Contact> userContacts = new ArrayList<>();
     ObservableList<Contact> contacts = FXCollections.observableArrayList();
 
@@ -64,60 +63,29 @@ public class Controller implements Initializable {
         JsonSerializer serializer = new JsonSerializer();
         ContactsWrapper cw = new ContactsWrapper();
         cw.myContacts = userContacts;
-        String json = serializer.deep(true).serialize(cw.myContacts);
+        String json = serializer.deep(true).serialize(cw);
         FileWriter fw = new FileWriter(f);
         fw.write(json);
         fw.close();
     }
 
-    public ArrayList<Contact> jsonReader(File f) throws IOException {
+    public ContactsWrapper jsonReader(File f) throws IOException {
         FileReader fr = new FileReader(f);
         int fileSize = (int) this.f.length();
         char[] contents = new char[fileSize];
         fr.read(contents, 0, fileSize);
         JsonParser parser = new JsonParser();
-        return parser.parse(contents, ArrayList.class);
+        return parser.parse(contents, ContactsWrapper.class);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            userContacts = jsonReader(f);
-            for (int i = 0; i < userContacts.size(); i++) {
-                contacts.add(userContacts.get(i));
-            }
+            userContacts = jsonReader(f).getMyContacts();
+            contacts.addAll(userContacts);
         } catch (IOException e) {
             e.printStackTrace();
         }
             list.setItems(contacts);
         }
     }
-
-
-
-
-
-
-
-
-
-//        try {
-//            ArrayList<Contact> theContacts = jsonReader(f);
-//            for (int i = 0; i < theContacts.size(); i++) {
-//                String cName = theContacts.get(i).name;
-//                String cNumber = theContacts.get(i).phoneNumber;
-//                String cEmail = theContacts.get(i).email;
-//                Contact contact = new Contact(cName, cNumber, cEmail);
-//                contacts.add(contact);
-//                System.out.println(contacts);
-//            }
-//            if (contacts == null) {
-//                contacts = FXCollections.observableArrayList();
-//            }
-// contacts = (ObservableList) theContacts;
-//                for (int i = 0; i < theContacts.size(); i++) {
-//                    contacts.add(theContacts.get(i));
-
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }

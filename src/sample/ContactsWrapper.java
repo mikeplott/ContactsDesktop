@@ -11,4 +11,7 @@ import java.util.*;
 public class ContactsWrapper {
     public ArrayList<Contact> myContacts;
 
+    public ArrayList<Contact> getMyContacts() {
+        return myContacts;
+    }
 }
