@@ -55,6 +55,7 @@ public class Controller implements Initializable {
         Contact contact = (Contact) list.getSelectionModel().getSelectedItem();
         if (contact != null) {
             contacts.remove(contact);
+            userContacts.remove(contact);
             jsonWriter(f);
         }
     }
